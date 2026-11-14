@@ -1,0 +1,17 @@
+{
+  "name": "account-quest-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Account Quest backend: secure MCP proxy, 60s queue, SQLite cache, rules-based analysis",
+  "engines": { "node": ">=22.13" },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "node --test \"test/*.test.js\""
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}

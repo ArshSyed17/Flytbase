@@ -1,0 +1,22 @@
+# Single-service deploy: Render builds the React app and Express serves it plus /api.
+services:
+  - type: web
+    name: account-quest
+    runtime: node
+    plan: starter            # a persistent disk needs a paid plan; free tier works but the cache resets on redeploy (auto re-sync)
+    buildCommand: cd client && npm ci && npm run build && cd ../server && npm ci
+    startCommand: cd server && node src/index.js
+    healthCheckPath: /api/status
+    envVars:
+      - key: NODE_VERSION
+        value: 22.13.0
+      - key: AQ_TOKEN
+        sync: false          # set privately in the Render dashboard
+      - key: WRITE_PASSCODE
+        sync: false
+      - key: DB_PATH
+        value: /var/data/account-quest.db
+    disk:
+      name: aq-data
+      mountPath: /var/data
+      sizeGB: 1
